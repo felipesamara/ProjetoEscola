@@ -1,4 +1,4 @@
-﻿using ProjetoEscola.Models;
+using ProjetoEscola.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ namespace ProjetoEscola.Controllers.Helper
 {
     public class HelperAluno : Controller
     {
-
+        //git
         public dbEscolaEntities db = new dbEscolaEntities();
 
         public string AdicionaAlunos(StreamReader reader)

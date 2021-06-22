@@ -85,6 +85,7 @@ namespace ProjetoEscola.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError("ERRO", "ERRO AO SUBIR ARQUIVO");
+                return View("Create");
             }
             int codigoProfessor = Convert.ToInt32(Session["cdProfessor"]);
             IList<tbAlunoProfessor> professores = db.tbAlunoProfessor.Where(x => x.cdProfessor == codigoProfessor).Include(x => x.tbProfessor).ToList(); 

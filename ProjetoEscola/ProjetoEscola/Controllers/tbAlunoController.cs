@@ -17,7 +17,7 @@ namespace ProjetoEscola.Controllers
 
         public ActionResult Index(int? id)
         {
-            id = Session["cdProfessor"] != null ? Convert.ToInt32(Session["cdProfessor"]) : id;
+            id = id != null ? id : Convert.ToInt32(Session["cdProfessor"]);
             var tbAlunoProfessor = db.tbAlunoProfessor.Include(t => t.tbProfessor).ToList();
             if (id != null)
             { 

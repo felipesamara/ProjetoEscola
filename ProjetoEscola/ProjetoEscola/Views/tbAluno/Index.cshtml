@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjetoEscola.Models.tbAlunoProfessor>
+@model IEnumerable<ProjetoEscola.Models.tbAlunoProfessor>
 
 @{
     ViewBag.Title = "Aluno";
@@ -6,14 +6,14 @@
 
 <h2>Aluno(s) Professor(a): @ViewBag.nmProfessor</h2>
 <p>
-    <a href="@Url.Action("Create")" class="btn btn-md btn-primary" style="margin-top:20px">
-         Adicionar Aluno
-    </a>
-    <a href="@Url.Action("Index", "tbProfessor")" class="btn btn-sm btn-warning pull-right" style="margin-top:30px">
+    <a href="@Url.Action("Index", "tbProfessor")" class="btn btn-sm btn-warning" style="margin-top:20px">
          Voltar
     </a>
+   
 </p>
-
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/tabelas.css" media="screen" />
+</head>
 <table class="table" id="tblAluno">
     <tr>
         <th>
@@ -28,7 +28,7 @@
         <th>
             Professor
         </th>
-        <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {

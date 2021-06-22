@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjetoEscola.Models.tbProfessor>
+@model IEnumerable<ProjetoEscola.Models.tbProfessor>
 
 @{
     ViewBag.Title = "Professores";
@@ -7,50 +7,7 @@
 <h2>Professores</h2>
 <br />
 <head>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-            text-align: center;
-        }
-
-        tr:nth-child(even) {
-            background-color: aliceblue;
-        }
-
-        .botao {
-            box-shadow: inset 0px -3px 7px 0px #29bbff;
-            background: linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
-            background-color: #2dabf9;
-            border-radius: 2px;
-            border: 1px solid #0b0e07;
-            display: inline-block;
-            cursor: pointer;
-            color: #ffffff;
-            font-family: Arial;
-            font-size: 9px;
-            padding: 5px 10px;
-            text-decoration: none;
-            text-shadow: 0px 1px 0px #263666;
-        }
-
-            .botao:hover {
-                background: linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
-                background-color: #0688fa;
-            }
-
-            .botao:active {
-                position: relative;
-                top: 1px;
-            }
-    </style>
+    <link rel="stylesheet" type="text/css" href="~/Content/tabelas.css" media="screen" />
 </head>
 <p>
     <a href="@Url.Action("Create")" class="btn btn-md btn-primary" style="margin-top:20px">

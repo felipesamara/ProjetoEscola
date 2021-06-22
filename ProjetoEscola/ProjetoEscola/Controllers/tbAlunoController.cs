@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,11 +17,13 @@ namespace ProjetoEscola.Controllers
 
         public ActionResult Index(int? id)
         {
-            var tbAlunoProfessor = db.tbAlunoProfessor.ToList();
+            id = Session["cdProfessor"] != null ? Convert.ToInt32(Session["cdProfessor"]) : id;
+            var tbAlunoProfessor = db.tbAlunoProfessor.Include(t => t.tbProfessor).ToList();
             if (id != null)
+            { 
                 tbAlunoProfessor = tbAlunoProfessor.Where(x => x.cdProfessor == id).ToList();
-            PegaNomeProfessor(id);
-
+                PegaNomeProfessor(id);
+            }
             return View(tbAlunoProfessor.ToList());
         }
 
@@ -73,11 +75,20 @@ namespace ProjetoEscola.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Upload(HttpPostedFileBase files)
         {
+
             string linhas;
-            StreamReader reader = new StreamReader(files.InputStream);
-            linhas = AdicionaAlunos(reader);
-            
-            return RedirectToAction("Index", db.tbAlunoProfessor.Include(t => t.tbProfessor).ToList());
+            try
+            {
+                StreamReader reader = new StreamReader(files.InputStream);
+                linhas = AdicionaAlunos(reader);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("ERRO", "ERRO AO SUBIR ARQUIVO");
+            }
+            int codigoProfessor = Convert.ToInt32(Session["cdProfessor"]);
+            IList<tbAlunoProfessor> professores = db.tbAlunoProfessor.Where(x => x.cdProfessor == codigoProfessor).Include(x => x.tbProfessor).ToList(); 
+            return RedirectToAction("Index", new { professores });
         }      
     }
 }

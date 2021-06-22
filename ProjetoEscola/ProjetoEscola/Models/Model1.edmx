@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbEscolaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbAluno">
+          <Key>
+            <PropertyRef Name="cdAluno" />
+          </Key>
+          <Property Name="cdAluno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nmAluno" Type="varchar" MaxLength="50" />
+          <Property Name="valorMensalidade" Type="money" />
+          <Property Name="vencimentoMensalidade" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbAlunoProfessor">
+          <Key>
+            <PropertyRef Name="cdAlunoProfessor" />
+          </Key>
+          <Property Name="cdAlunoProfessor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cdAluno" Type="int" />
+          <Property Name="cdProfessor" Type="int" />
+        </EntityType>
+        <EntityType Name="tbProfessor">
+          <Key>
+            <PropertyRef Name="cdProfessor" />
+          </Key>
+          <Property Name="cdProfessor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nmProfessor" Type="varchar" MaxLength="50" />
+          <Property Name="nmMateria" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tbAlunoProfessor_tbAluno">
+          <End Role="tbAluno" Type="Self.tbAluno" Multiplicity="0..1" />
+          <End Role="tbAlunoProfessor" Type="Self.tbAlunoProfessor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAluno">
+              <PropertyRef Name="cdAluno" />
+            </Principal>
+            <Dependent Role="tbAlunoProfessor">
+              <PropertyRef Name="cdAluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbAlunoProfessor_tbProfessor">
+          <End Role="tbProfessor" Type="Self.tbProfessor" Multiplicity="0..1" />
+          <End Role="tbAlunoProfessor" Type="Self.tbAlunoProfessor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProfessor">
+              <PropertyRef Name="cdProfessor" />
+            </Principal>
+            <Dependent Role="tbAlunoProfessor">
+              <PropertyRef Name="cdProfessor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbEscolaModelStoreContainer">
+          <EntitySet Name="tbAluno" EntityType="Self.tbAluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbAlunoProfessor" EntityType="Self.tbAlunoProfessor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbProfessor" EntityType="Self.tbProfessor" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbAlunoProfessor_tbAluno" Association="Self.FK_tbAlunoProfessor_tbAluno">
+            <End Role="tbAluno" EntitySet="tbAluno" />
+            <End Role="tbAlunoProfessor" EntitySet="tbAlunoProfessor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbAlunoProfessor_tbProfessor" Association="Self.FK_tbAlunoProfessor_tbProfessor">
+            <End Role="tbProfessor" EntitySet="tbProfessor" />
+            <End Role="tbAlunoProfessor" EntitySet="tbAlunoProfessor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbEscolaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbAluno">
+          <Key>
+            <PropertyRef Name="cdAluno" />
+          </Key>
+          <Property Name="cdAluno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nmAluno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="valorMensalidade" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="vencimentoMensalidade" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbAlunoProfessor" Relationship="dbEscolaModel.FK_tbAlunoProfessor_tbAluno" FromRole="tbAluno" ToRole="tbAlunoProfessor" />
+        </EntityType>
+        <EntityType Name="tbProfessor">
+          <Key>
+            <PropertyRef Name="cdProfessor" />
+          </Key>
+          <Property Name="cdProfessor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nmProfessor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nmMateria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbAlunoProfessor" Relationship="dbEscolaModel.FK_tbAlunoProfessor_tbProfessor" FromRole="tbProfessor" ToRole="tbAlunoProfessor" />
+        </EntityType>
+        <EntityContainer Name="dbEscolaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAluno" EntityType="Self.tbAluno" />
+          <EntitySet Name="tbProfessor" EntityType="Self.tbProfessor" />
+          <EntitySet Name="tbAlunoProfessor" EntityType="dbEscolaModel.tbAlunoProfessor" />
+          <AssociationSet Name="FK_tbAlunoProfessor_tbAluno" Association="dbEscolaModel.FK_tbAlunoProfessor_tbAluno">
+            <End Role="tbAluno" EntitySet="tbAluno" />
+            <End Role="tbAlunoProfessor" EntitySet="tbAlunoProfessor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbAlunoProfessor_tbProfessor" Association="dbEscolaModel.FK_tbAlunoProfessor_tbProfessor">
+            <End Role="tbProfessor" EntitySet="tbProfessor" />
+            <End Role="tbAlunoProfessor" EntitySet="tbAlunoProfessor" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbAlunoProfessor">
+          <Key>
+            <PropertyRef Name="cdAlunoProfessor" />
+          </Key>
+          <Property Name="cdAlunoProfessor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cdAluno" Type="Int32" />
+          <Property Name="cdProfessor" Type="Int32" />
+          <NavigationProperty Name="tbAluno" Relationship="dbEscolaModel.FK_tbAlunoProfessor_tbAluno" FromRole="tbAlunoProfessor" ToRole="tbAluno" />
+          <NavigationProperty Name="tbProfessor" Relationship="dbEscolaModel.FK_tbAlunoProfessor_tbProfessor" FromRole="tbAlunoProfessor" ToRole="tbProfessor" />
+        </EntityType>
+        <Association Name="FK_tbAlunoProfessor_tbAluno">
+          <End Type="dbEscolaModel.tbAluno" Role="tbAluno" Multiplicity="0..1" />
+          <End Type="dbEscolaModel.tbAlunoProfessor" Role="tbAlunoProfessor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAluno">
+              <PropertyRef Name="cdAluno" />
+            </Principal>
+            <Dependent Role="tbAlunoProfessor">
+              <PropertyRef Name="cdAluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbAlunoProfessor_tbProfessor">
+          <End Type="dbEscolaModel.tbProfessor" Role="tbProfessor" Multiplicity="0..1" />
+          <End Type="dbEscolaModel.tbAlunoProfessor" Role="tbAlunoProfessor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProfessor">
+              <PropertyRef Name="cdProfessor" />
+            </Principal>
+            <Dependent Role="tbAlunoProfessor">
+              <PropertyRef Name="cdProfessor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbEscolaModelStoreContainer" CdmEntityContainer="dbEscolaEntities">
+          <EntitySetMapping Name="tbAluno">
+            <EntityTypeMapping TypeName="dbEscolaModel.tbAluno">
+              <MappingFragment StoreEntitySet="tbAluno">
+                <ScalarProperty Name="cdAluno" ColumnName="cdAluno" />
+                <ScalarProperty Name="nmAluno" ColumnName="nmAluno" />
+                <ScalarProperty Name="valorMensalidade" ColumnName="valorMensalidade" />
+                <ScalarProperty Name="vencimentoMensalidade" ColumnName="vencimentoMensalidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbProfessor">
+            <EntityTypeMapping TypeName="dbEscolaModel.tbProfessor">
+              <MappingFragment StoreEntitySet="tbProfessor">
+                <ScalarProperty Name="cdProfessor" ColumnName="cdProfessor" />
+                <ScalarProperty Name="nmProfessor" ColumnName="nmProfessor" />
+                <ScalarProperty Name="nmMateria" ColumnName="nmMateria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbAlunoProfessor">
+            <EntityTypeMapping TypeName="dbEscolaModel.tbAlunoProfessor">
+              <MappingFragment StoreEntitySet="tbAlunoProfessor">
+                <ScalarProperty Name="cdProfessor" ColumnName="cdProfessor" />
+                <ScalarProperty Name="cdAluno" ColumnName="cdAluno" />
+                <ScalarProperty Name="cdAlunoProfessor" ColumnName="cdAlunoProfessor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

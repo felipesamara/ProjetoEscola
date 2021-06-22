@@ -1,0 +1,56 @@
+﻿@model ProjetoEscola.Models.tbAluno
+
+@{
+    ViewBag.Title = "Adicionar Aluno";
+}
+<style>
+    #inputArquivo {
+        display: none;
+    }
+</style>
+
+<script>
+    function ValidarArquivo() {
+        if (document.getElementById('inputfile').value.indexOf('.txt') == -1) {
+            document.getElementById("inputfile").value = "";
+            //document.getElementById("dvProgress").style.display = "none";
+            event.preventDefault();
+
+                keyboard: false
+
+            
+                location.reload();
+           
+        } else {
+            //Chama alert de upload
+            $('#alertUpload').modal({
+                //Congela o alert
+                backdrop: 'static',
+                keyboard: false
+            })
+        }
+    }
+</script>
+
+<div>
+    <a href="@Url.Action("Index")" class="btn btn-sm btn-warning pull-right" style="margin-top:50px">
+        <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+    </a>
+</div>
+
+    <div class="panel-body">
+        <div class="container-fluid">
+            <h2>Adicionar Aluno</h2>
+          
+                @using (Html.BeginForm("Upload", "tbAluno", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input id='inputfile' type='file' name='files'><br>
+                    <input type="submit" value="Upload" />
+                }
+            </div>
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ProjetoEscola.Models.tbAluno>
+
+@{
+    ViewBag.Title = "Aluno";
+}
+
+<h2>Alunos</h2>
+<script>
+    function deletarAluno(ID) {
+        var ans = confirm("Deseja realmente excluir o aluno?");
+        if (ans) {
+            $.ajax({
+                url: "/tbAluno/Delete/" + ID,
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $("#tblAluno").load(window.location + " #tblAluno");
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    }
+</script>
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-md btn-primary" style="margin-top:20px">
+        <span class="glyphicon glyphicon-plus"></span> Adicionar Aluno
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-warning pull-right" style="margin-top:30px">
+        Página Inicial
+    </a>
+</p>
+
+<table class="table" id="tblAluno">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Valor Mnesalidade
+        </th>
+        <th>
+            Data Vencimento
+        </th>
+        <th>
+            Professor
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nmAluno)
+        </td>
+        <td>
+            @string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:c}", @item.valorMensalidade)
+        </td>
+        <td>
+            @item.vencimentoMensalidade.Value.ToString("dd/MM/yyyy")
+        </td>
+        
+        <td class="text-right">
+            <button onclick="deletarAluno(@item.cdAluno)" id="btnDeletar" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deletar"><span>Deletar</span></button>
+        </td>
+    </tr>
+}
+
+</table>

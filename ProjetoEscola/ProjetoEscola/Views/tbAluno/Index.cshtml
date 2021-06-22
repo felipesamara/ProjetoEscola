@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ProjetoEscola.Models.tbAlunoProfessor>
+
+@{
+    ViewBag.Title = "Aluno";
+}
+
+<h2>Aluno(s) Professor(a): @ViewBag.nmProfessor</h2>
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-md btn-primary" style="margin-top:20px">
+         Adicionar Aluno
+    </a>
+    <a href="@Url.Action("Index", "tbProfessor")" class="btn btn-sm btn-warning pull-right" style="margin-top:30px">
+         Voltar
+    </a>
+</p>
+
+<table class="table" id="tblAluno">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Valor Mnesalidade
+        </th>
+        <th>
+            Data Vencimento
+        </th>
+        <th>
+            Professor
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbAluno.nmAluno)
+        </td>
+        <td>
+            @string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:c}", @item.tbAluno.valorMensalidade)
+        </td>
+        <td>
+            @item.tbAluno.vencimentoMensalidade.Value.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @item.tbProfessor.nmProfessor
+        </td>
+        
+    </tr>
+}
+
+</table>

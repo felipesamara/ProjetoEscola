@@ -1,4 +1,4 @@
-﻿@model ProjetoEscola.Models.tbAluno
+@model ProjetoEscola.Models.tbAluno
 
 @{
     ViewBag.Title = "Adicionar Aluno";
@@ -33,7 +33,7 @@
 </script>
 
 <div>
-    <a href="@Url.Action("Index")" class="btn btn-sm btn-warning pull-right" style="margin-top:50px">
+    <a href="@Url.Action("Index", "tbProfessor")" class="btn btn-sm btn-warning pull-right" style="margin-top:50px">
         <span class="glyphicon glyphicon-arrow-left"></span> Voltar
     </a>
 </div>
@@ -45,7 +45,7 @@
                 @using (Html.BeginForm("Upload", "tbAluno", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input id='inputfile' type='file' name='files'><br>
+                    <input id='inputfile' type='file' name='files' accept=".txt"><br>
                     <input type="submit" value="Upload" />
                 }
             </div>

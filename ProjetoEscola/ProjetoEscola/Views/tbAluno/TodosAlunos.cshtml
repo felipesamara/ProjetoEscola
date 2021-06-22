@@ -1,10 +1,15 @@
-﻿@model IEnumerable<ProjetoEscola.Models.tbAluno>
+@model IEnumerable<ProjetoEscola.Models.tbAluno>
 
 @{
     ViewBag.Title = "Aluno";
 }
 
-<h2>Alunos</h2>
+<h2>Todos Alunos</h2>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/tabelas.css" media="screen" />
+    
+</head>
 <script>
     function deletarAluno(ID) {
         var ans = confirm("Deseja realmente excluir o aluno?");
@@ -25,10 +30,7 @@
     }
 </script>
 <p>
-    <a href="@Url.Action("Create")" class="btn btn-md btn-primary" style="margin-top:20px">
-        <span class="glyphicon glyphicon-plus"></span> Adicionar Aluno
-    </a>
-    <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-warning pull-right" style="margin-top:30px">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-warning" style="margin-top:20px">
         Página Inicial
     </a>
 </p>
@@ -61,7 +63,15 @@
         <td>
             @item.vencimentoMensalidade.Value.ToString("dd/MM/yyyy")
         </td>
-        
+        <td>
+            @if(item.tbAlunoProfessor.Count != 0) {
+                @item.tbAlunoProfessor.FirstOrDefault().tbProfessor.nmProfessor;
+        }
+            else {
+            <p>SEM PROFESSOR</p>
+            }
+        </td>
+
         <td class="text-right">
             <button onclick="deletarAluno(@item.cdAluno)" id="btnDeletar" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deletar"><span>Deletar</span></button>
         </td>

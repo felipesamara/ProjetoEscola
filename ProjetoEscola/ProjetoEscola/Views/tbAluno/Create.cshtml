@@ -41,7 +41,9 @@
     <div class="panel-body">
         <div class="container-fluid">
             <h2>Adicionar Aluno</h2>
-          
+            <div class="text-danger">
+                @Html.ValidationSummary(false)
+            </div>
                 @using (Html.BeginForm("Upload", "tbAluno", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()

@@ -11,9 +11,7 @@
     
 </head>
 <script>
-    function deletarAluno(ID) {
-        var ans = confirm("Deseja realmente excluir o aluno?");
-        if (ans) {
+    function deletarAluno(ID) {        
             $.ajax({
                 url: "/tbAluno/Delete/" + ID,
                 type: "POST",
@@ -25,8 +23,7 @@
                 error: function (errormessage) {
                     alert(errormessage.responseText);
                 }
-            });
-        }
+            });       
     }
 </script>
 <p>

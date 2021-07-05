@@ -1,0 +1,2 @@
+Tive problema ao subir uma pasta para o git, portanto depois que baixarem o projeto e rodarem a primeira vez, ele vai dar um problema, ai é só pegar a pasta ROSLYN 
+e colar dentro da pasta bin e rodar de novo.
